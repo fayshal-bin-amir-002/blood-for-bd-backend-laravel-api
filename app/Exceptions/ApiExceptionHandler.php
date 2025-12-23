@@ -21,7 +21,7 @@ class ApiExceptionHandler
       if ($request->is('api/*')) {
 
         if($e instanceof ValidationException) {
-          return ApiResponse::error('Validation failed', 422, $e->errors());
+          return ApiResponse::error($e->getMessage() ?: 'Validation failed', 422, $e->errors());
         }
 
         if($e instanceof AuthenticationException) {
