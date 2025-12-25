@@ -22,7 +22,7 @@ class UserController extends Controller
 
     Gate::authorize('isAdmin', User::class);
 
-    $users = User::apiQuery($request, ['name', 'email']);
+    $users = User::with('donor')->apiQuery($request, ['name', 'email']);
     $res = UserResource::collection($users)->response()->getData(true);
 
     return ApiResponse::success('Retrived all users', 200, $res);

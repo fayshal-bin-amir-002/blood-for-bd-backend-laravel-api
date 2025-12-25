@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Enum\BloodGroup;
+use App\Traits\ApiQueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Donor extends Model
 {
+  use ApiQueryBuilder;
+  
   protected $fillable = [
     'user_id',
     'name',
@@ -24,6 +27,7 @@ class Donor extends Model
   protected function casts()
   {
     return [
+      'last_donation_date' => 'date',
       'blood_group' => BloodGroup::class,
       'is_active' => 'boolean'
     ];

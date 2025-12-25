@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enum\Role;
+use App\Notifications\ResetPasswordNotification;
 use App\Traits\ApiQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -53,6 +54,13 @@ class User extends Authenticatable
         'role' => Role::class,
         'is_blocked' => 'boolean'
     ];
+  }
+
+  public function sendPasswordResetNotification($token): void
+  {
+    $url = 'http://localhost:3000/reset-password?token=' . $token . '&email=' . $this->email;
+
+    $this->notify(new ResetPasswordNotification($url));
   }
 
   public function donor(): HasOne {

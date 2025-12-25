@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Donor;
 use App\Models\User;
+use App\Policies\V1\DonorPolicy;
 use App\Policies\V1\UserPolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\RateLimiter;
@@ -39,5 +41,6 @@ class AppServiceProvider extends ServiceProvider
 
     // Registering Policies
     Gate::policy(User::class, UserPolicy::class);
+    Gate::policy(Donor::class, DonorPolicy::class);
   }
 }

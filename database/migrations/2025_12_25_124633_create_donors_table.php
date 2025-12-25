@@ -13,7 +13,7 @@ return new class extends Migration
   {
     Schema::create('donors', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+      $table->foreignId('user_id')->nullable()->unique()->constrained()->cascadeOnDelete();
       $table->string('name');
       $table->string('contact');
       $table->string('division');

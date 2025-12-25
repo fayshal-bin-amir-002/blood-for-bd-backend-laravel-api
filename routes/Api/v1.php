@@ -14,6 +14,10 @@ Route::middleware('throttle:login_reg')->group(function() {
 
   Route::post("/logout", [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+  Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+
+  Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
 });
 
 Route::middleware(['auth:sanctum'])->group(function() {
@@ -21,8 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function() {
     ->except(['store']);
 
   Route::apiResource('/donor', DonorController::class)
-    ->only(['update', 'delete']);
+    ->except(['store']);
 });
 
-Route::apiResource('/donor', DonorController::class)
-    ->except(['update', 'delete']);
+Route::post('/donor', [DonorController::class, 'store']);

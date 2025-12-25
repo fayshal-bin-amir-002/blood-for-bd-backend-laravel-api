@@ -6,6 +6,7 @@ use App\Helpers\ApiResponse;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -30,6 +31,10 @@ class ApiExceptionHandler
 
         if($e instanceof AccessDeniedHttpException) {
           return ApiResponse::error('Forbidden', 403);
+        }
+
+        if($e instanceof UniqueConstraintViolationException) {
+          return ApiResponse::error('Already exists', 403);
         }
 
         if($e instanceof NotFoundHttpException) {
