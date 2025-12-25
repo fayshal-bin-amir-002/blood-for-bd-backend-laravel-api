@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
   public function register(Request $request) {
 
     $validated = $request->validate([
@@ -52,4 +53,10 @@ class AuthController extends Controller
 
     return ApiResponse::success('Logged in Successfully', 200, $data);
   }
+
+  public function logout(Request $request) {
+    $request->user()->currentAccessToken()->delete();
+    return ApiResponse::success('Logged out Successfully', 200);
+  }
+  
 }
